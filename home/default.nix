@@ -1,9 +1,5 @@
+{ pkgs,  ... }:
 {
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
   home.username = "hello";
   home.homeDirectory = "/home/hello";
 
@@ -34,7 +30,7 @@
     enable = true;
     font = {
       name = "JetBrains Mono";
-      size = 11;
+      size = 12;
     };
   };
 
