@@ -6,7 +6,12 @@
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
-    }; 
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v1.1.0";
@@ -20,7 +25,7 @@
 
   };
 
-  outputs = { self, nixpkgs, lanzaboote, home-manager, nur, ... }@inputs: {
+  outputs = { self, nixpkgs, lanzaboote, home-manager, nur, nixvim, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -32,7 +37,10 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inherit inputs; };
-          home-manager.users.hello = import ./home.nix;
+          home-manager.users.hello = import ./home/default.nix;
+	  home-manager.sharedModules = [
+	    nixvim.homeManagerModules.nixvim
+	  ];
         }
 	{
         nixpkgs.config.packageOverrides = pkgs: {

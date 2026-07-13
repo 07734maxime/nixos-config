@@ -1,4 +1,4 @@
-	{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 	{
 	  home.username = "hello";
@@ -13,10 +13,14 @@
 	    unzip
 	    zip
 	    wget
-	    neovim
 	    hyprlauncher
 	    yazi
+			alejandra
 	  ];
+
+		import = [
+		./nixvim.nix
+	];
 
 	  programs.git = {
 	    enable = true;
@@ -37,7 +41,6 @@
 	  };
 
 
-
 	  programs.home-manager.enable = true;
 
 	  programs.vscode = {
@@ -46,12 +49,15 @@
 	    profiles = {
 	      default = {
 		userSettings = {
+	
 		  "editor.fontSize" = 14;
 		  "editor.fontFamily" = "'JetBrainsMono Nerd Font'";
 		};
 	      };
 	    };
 	  };
+
+
 
 	  programs.firefox = {
 	    enable = true;
@@ -92,6 +98,14 @@
 		input = {
 		  kb_layout = "fr";
 		};
+
+		general = {
+		  gaps_in=10;
+		  gaps_out=10;
+
+		  layout = "scrolling";
+		};
+
 
 		decoration = {
 		  rounding = 15;
