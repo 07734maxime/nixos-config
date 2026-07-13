@@ -14,13 +14,13 @@
     zip
     wget
     neovim
-  ]
+  ];
 
   programs.git = {
     enable = true;
     userName = "07734maxime";
     userEmail = "07734maxime@proton.me";
-  }
+  };
 
 
 
