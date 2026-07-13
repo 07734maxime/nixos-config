@@ -3,7 +3,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nur.url = "github:nix-community/NUR";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }; 
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v1.1.0";
@@ -12,13 +15,12 @@
     
     home-manager = {
       url = "github:nix-community/home-manager";
-      # On force HM à suivre la même version de nixpkgs que ton système
       inputs.nixpkgs.follows = "nixpkgs";
     }; 
 
   };
 
-  outputs = { self, nixpkgs, lanzaboote, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, lanzaboote, home-manager, nur, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -27,12 +29,19 @@
         lanzaboote.nixosModules.lanzaboote
 	home-manager.nixosModules.home-manager
         {
-	  nixpkgs.overlays = [ inputs.nur.overlay ];
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inherit inputs; };
           home-manager.users.hello = import ./home.nix;
         }
+	{
+        nixpkgs.config.packageOverrides = pkgs: {
+          nur = import nur {
+              inherit pkgs;
+              nurpkgs = pkgs;
+            };
+          };
+      	}
       ];
     };
   };

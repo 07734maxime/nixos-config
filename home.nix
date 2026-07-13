@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   home.username = "hello";
@@ -18,8 +18,20 @@
 
   programs.git = {
     enable = true;
-    userName = "07734maxime";
-    userEmail = "07734maxime@proton.me";
+    settings = {
+	user = {
+	  name = "07734maxime";
+	  email = "07734maxime@proton.me";
+	};
+    };
+  };
+
+  gtk = {
+    enable = true;
+    font = {
+      name = "JetBrains Mono";
+      size = 11;
+   };
   };
 
 
@@ -28,13 +40,14 @@
 
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
-    	discord-rpc
-    ];
 
-    userSettings = {
-      "editor.fontSize" = 14;
-      "editor.fontFamily" = "'JetBrainsMono Nerd Font'";
+    profiles = {
+      default = {
+        userSettings = {
+          "editor.fontSize" = 14;
+          "editor.fontFamily" = "'JetBrainsMono Nerd Font'";
+        };
+      };
     };
   };
 
@@ -45,10 +58,6 @@
       name = "Default";
       isDefault = true;
     
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-        ublock-origin
-      ];
-    
       settings = {
         "browser.startup.homepage" = "https://nixos.org";
         "privacy.trackingprotection.enabled" = true;
@@ -58,5 +67,45 @@
   };
   programs.kitty.enable = true;
   wayland.windowManager.hyprland.enable = true;
+
+  wayland.windowManager.hyprland.settings = {
+    
+    mod = { _var = "SUPER"; };
+
+    config = {
+	input = {
+	  kb_layout = "fr";
+    	};
+    };
+
+    monitor = [
+      { output = "DP-2"; mode = "1920x1080@180"; position = "0x0"; scale = 1; }
+      { output = "DP-1"; mode = "1920x1080@180"; position = "1920x0"; scale = 1; }
+    ];
+
+  bind = [
+    {
+      _args = [
+        (lib.generators.mkLuaInline "mod .. \" + Q\"")
+        (lib.generators.mkLuaInline "hl.dsp.window.close()")
+        { locked = true; }
+      ];
+    }
+    {
+      _args = [
+        "SUPER + T"
+        (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"kitty\")")
+      ];
+    }
+    {
+      _args = [
+        "ALT + R"
+        (lib.generators.mkLuaInline "hl.dsp.submap(\"resize\")")
+      ];
+    }
+  ];
+
+  };
+
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 }

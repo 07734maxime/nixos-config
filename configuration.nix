@@ -21,6 +21,7 @@
 
 
   nixpkgs.config.allowUnfree = true;
+  programs.dconf.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
 

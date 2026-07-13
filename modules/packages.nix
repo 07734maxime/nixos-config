@@ -2,6 +2,10 @@
 
 {
 	environment.systemPackages = with pkgs; [
-   	sbctl
+   	  sbctl
  	];
+
+	fonts.packages = with pkgs; [
+  	  jetbrains-mono
+	];
 }
