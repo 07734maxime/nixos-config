@@ -9,9 +9,8 @@
     };
 
     nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+			url = "github:nix-community/nixvim";
+		};
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v1.1.0";
@@ -39,7 +38,7 @@
           home-manager.extraSpecialArgs = { inherit inputs; };
           home-manager.users.hello = import ./home/default.nix;
 	  home-manager.sharedModules = [
-	    nixvim.homeManagerModules.nixvim
+	    nixvim.homeModules.nixvim
 	  ];
         }
 	{

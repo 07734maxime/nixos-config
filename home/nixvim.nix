@@ -38,7 +38,9 @@
       # Explorateur de fichiers
       neo-tree = {
         enable = true;
-        window.width = 30;
+				settings = {
+					window.width = 30;
+				};
       };
 
       # Fuzzy finder
@@ -87,9 +89,9 @@
         enable = true;
         servers = {
           nil_ls.enable = true; # LSP pour Nix
-          lua-ls.enable = true;
+          lua_ls.enable = true;
           pyright.enable = true;
-          tsserver.enable = true;
+          ts_ls.enable = true;
           # ajoutez vos langages ici
         };
       };
