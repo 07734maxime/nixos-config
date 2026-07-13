@@ -22,7 +22,7 @@
 		./firefox.nix
 		./git.nix
 		./vscode.nix
-		./hyprland.nix
+		./hyprland/hyprland.nix
   ];
 
 
