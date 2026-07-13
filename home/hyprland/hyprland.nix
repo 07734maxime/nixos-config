@@ -36,9 +36,9 @@
       };
     };
 
-    monitor = import ./hyprland/monitors.nix;
-    curve = import ./hyprland/curves.nix;
-    animation = import ./hyprland/animations.nix;
-    bind = import ./hyprland/binds.nix { inherit lib; };
+    monitor = import ./monitors.nix;
+    curve = import ./curves.nix;
+    animation = import ./animations.nix;
+    bind = import ./binds.nix { inherit lib; };
   };
 }
