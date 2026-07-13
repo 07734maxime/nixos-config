@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 {
-  # Nvidia
   hardware.graphics = { enable = true; enable32Bit = true; };
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
@@ -11,8 +10,5 @@
     	package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Hyprland & Audio
-  programs.hyprland.enable = true;
   services.pipewire = { enable = true; pulse.enable = true; };
-  programs.firefox.enable = true;
 }
