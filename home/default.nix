@@ -34,6 +34,13 @@
     };
   };
 
+	programs.bash = {
+		enable = true;
+			bashrcExtra = ''
+				fastfetch
+			'';
+	};
+
   programs.home-manager.enable = true;
 
 
