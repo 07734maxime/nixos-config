@@ -48,7 +48,7 @@
 		enable = true;
 		background_opacity = "0.7";
 		window_padding_width = 10;
-	}
+	};
 
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 }
