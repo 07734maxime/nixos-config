@@ -27,6 +27,7 @@
         lanzaboote.nixosModules.lanzaboote
 	home-manager.nixosModules.home-manager
         {
+	  nixpkgs.overlays = [ inputs.nur.overlay ];
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inherit inputs; };
