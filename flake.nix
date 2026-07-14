@@ -24,12 +24,12 @@
 
   };
 
-  outputs = { self, nixpkgs, lanzaboote, home-manager, nur, nixvim, ... }@inputs: {
+  outputs = { self, nixpkgs, lanzaboote, home-manager, nur, nixvim,  ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [
-        ./configuration.nix
+        ./configuration.nix	
         lanzaboote.nixosModules.lanzaboote
 	home-manager.nixosModules.home-manager
         {
@@ -38,7 +38,7 @@
           home-manager.extraSpecialArgs = { inherit inputs; };
           home-manager.users.hello = import ./home/default.nix;
 	  home-manager.sharedModules = [
-	    nixvim.homeModules.nixvim
+						nixvim.homeModules.nixvim
 	  ];
         }
 	{
