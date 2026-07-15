@@ -13,7 +13,7 @@
     };
 
     menu = {
-      _var = "hyprlauncher";
+      _var = "noctalia msg panel-toggle launcher";
     };
 
     fileManager = {
