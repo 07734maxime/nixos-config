@@ -14,7 +14,12 @@
     wget
     hyprlauncher
     yazi
+		xdg-utils
     alejandra
+		noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+		noto-fonts-color-emoji
   ];
 
   imports = [
@@ -24,6 +29,7 @@
 		./git.nix
 		./vscode.nix
 		./hyprland/hyprland.nix
+		./noctalia.nix
   ];
 
 
@@ -34,6 +40,8 @@
       size = 12;
     };
   };
+
+
 
 	programs.bash = {
 		enable = true;

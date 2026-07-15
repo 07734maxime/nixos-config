@@ -1,5 +1,5 @@
 {
-  description = "NixOS Flakes config";
+  description = "My NixOS Config!! With flake now";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -7,6 +7,8 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+		noctalia.url = "github:noctalia-dev/noctalia";
 
     nixvim = {
 			url = "github:nix-community/nixvim";
@@ -39,6 +41,7 @@
           home-manager.users.hello = import ./home/default.nix;
 	  home-manager.sharedModules = [
 						nixvim.homeModules.nixvim
+						inputs.noctalia.homeModules.default
 	  ];
         }
 	{

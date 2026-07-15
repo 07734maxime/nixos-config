@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 {
   imports =
     [
@@ -6,9 +6,14 @@
       ./modules/packages.nix
       ./modules/system.nix
       ./modules/desktop.nix
-    ];
+			inputs.noctalia.nixosModules.default
+		];
 
-
+  programs.noctalia = {
+    enable = true;
+    recommendedServices.enable = true;   # active NetworkManager, Bluetooth, UPower, power-profiles-daemon
+  };
+	programs.noctalia.systemd.enable = true;
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.grub.enable = false;
   boot.loader.systemd-boot.configurationLimit = 3;
@@ -18,6 +23,11 @@
     enable = true;
     pkiBundle = "/var/lib/sbctl";
   };
+
+	nix.settings = {
+  	extra-substituters = [ "https://noctalia.cachix.org" ];
+  	extra-trusted-public-keys = [ "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=" ];
+	};
 
 
   nixpkgs.config.allowUnfree = true;
