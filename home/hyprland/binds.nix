@@ -7,6 +7,12 @@
       (lib.generators.mkLuaInline "hl.dsp.window.close()")
     ];
   }
+	{
+		_args = [
+			(lib.generators.mkLuaInline "mod .. \"+ SHIFT + ESCAPE\"")
+			(lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"bash -c 'kitty -e btop'\")")
+		];
+	}
   {
     _args = [
       (lib.generators.mkLuaInline "mod .. \" + D\"")

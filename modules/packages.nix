@@ -2,7 +2,9 @@
 
 {
 	environment.systemPackages = with pkgs; [
-   	  sbctl
+		sbctl
+		tuigreet
+		greetd
  	];
 
 	fonts.packages = with pkgs; [

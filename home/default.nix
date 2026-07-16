@@ -8,7 +8,7 @@
   home.packages = with pkgs; [
     vesktop
     fastfetch
-    htop
+    btop
     unzip
     zip
     wget
@@ -20,6 +20,7 @@
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
 		noto-fonts-color-emoji
+		tree
   ];
 
   imports = [
@@ -28,18 +29,40 @@
 		./firefox.nix
 		./git.nix
 		./vscode.nix
-		./hyprland/hyprland.nix
-		./noctalia.nix
+		./hyprland/default.nix
   ];
 
+	programs.zsh = {
+  enable = true;
+  enableCompletion = true;
+  autosuggestion.enable = true;
+  syntaxHighlighting.enable = true;
 
-  gtk = {
+
+  oh-my-zsh = {
     enable = true;
-    font = {
-      name = "JetBrains Mono";
-      size = 12;
-    };
+    theme = "robbyrussell";
+    plugins = [
+      "git"
+      "zoxide"
+      "fzf"
+    ];
   };
+
+
+  shellAliases = {
+    ll = "ls -l";
+    nixswitch = "nh os switch";
+    v = "nvim";
+  };
+};
+
+
+programs.zoxide.enable = true;
+programs.fzf.enable = true;
+
+
+
 
 
 

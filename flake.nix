@@ -11,7 +11,6 @@
 			url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
-		noctalia.url = "github:noctalia-dev/noctalia";
 
     nixvim = {
 			url = "github:nix-community/nixvim";
@@ -44,7 +43,6 @@
           home-manager.users.hello = import ./home/default.nix;
 	  home-manager.sharedModules = [
 						nixvim.homeModules.nixvim
-						inputs.noctalia.homeModules.default
 	  ];
         }
 	{
