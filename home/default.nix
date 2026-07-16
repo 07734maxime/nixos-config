@@ -1,4 +1,4 @@
-{ pkgs,  ... }:
+{ config, inputs, pkgs,  ... }:
 {
   home.username = "hello";
   home.homeDirectory = "/home/hello";
@@ -12,8 +12,7 @@
     unzip
     zip
     wget
-    hyprlauncher
-    yazi
+		yazi
 		xdg-utils
     alejandra
 		noto-fonts
@@ -21,6 +20,10 @@
     noto-fonts-cjk-serif
 		noto-fonts-color-emoji
 		tree
+		inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww
+		fuzzel
+		wlr-randr
+		waypaper
   ];
 
   imports = [
@@ -29,7 +32,6 @@
 		./firefox.nix
 		./git.nix
 		./vscode.nix
-		./hyprland/default.nix
   ];
 
 	programs.zsh = {
@@ -41,7 +43,7 @@
 
   oh-my-zsh = {
     enable = true;
-    theme = "robbyrussell";
+    theme = "soliah";
     plugins = [
       "git"
       "zoxide"
@@ -57,10 +59,36 @@
   };
 };
 
+programs.niri = {
+  enable = true;
+  settings = {
+		binds = with config.lib.niri.actions; {
+			"Mod+Q".action = close-window;
+			"Mod+Shift+E".action = quit;
+		  "Mod+Left".action = focus-column-left;
+  		"Mod+Right".action = focus-column-right;
+  		"Mod+Shift+Left".action = move-column-left;
+  		"Mod+Shift+Right".action = move-column-right;
+			"Mod+T".action.spawn = "kitty";
+			"Mod+D".action.spawn = "fuzzel";
+
+			};
+		outputs."DP-1".mode = { width = 1920; height = 1080; refresh = 180.0; };
+		outputs."DP-2".mode = { width = 1920; height = 1080; refresh = 179.981995; };
+		input = {
+      keyboard = {
+        xkb = {
+          layout = "fr";
+          variant = "latin9"; # "latin9" est souvent préférable à "azerty" pour éviter les bugs sur les symboles
+        };
+      };
+    };
+  };
+};
+
 
 programs.zoxide.enable = true;
 programs.fzf.enable = true;
-
 
 
 

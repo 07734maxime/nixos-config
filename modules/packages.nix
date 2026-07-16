@@ -5,6 +5,7 @@
 		sbctl
 		tuigreet
 		greetd
+
  	];
 
 	fonts.packages = with pkgs; [

@@ -12,9 +12,14 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
+		matugen.url = "github:/InioX/Matugen";
+		awww.url = "git+https://codeberg.org/LGFae/awww";
+
     nixvim = {
 			url = "github:nix-community/nixvim";
 		};
+
+		niri.url = "github:sodiboo/niri-flake";
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v1.1.0";
@@ -28,7 +33,7 @@
 
   };
 
-  outputs = { self, nixpkgs, lanzaboote, home-manager, nur, nixvim,  ... }@inputs: {
+  outputs = { self, nixpkgs, lanzaboote, home-manager, nur, nixvim, niri, matugen,  ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -43,6 +48,8 @@
           home-manager.users.hello = import ./home/default.nix;
 	  home-manager.sharedModules = [
 						nixvim.homeModules.nixvim
+						matugen.nixosModules.default
+						niri.homeModules.niri
 	  ];
         }
 	{
