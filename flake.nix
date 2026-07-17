@@ -39,20 +39,23 @@
       specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix	
+				{
+					nixpkgs.overlays = [ inputs.niri.overlays.niri ];
+				}
         lanzaboote.nixosModules.lanzaboote
-	home-manager.nixosModules.home-manager
+				home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inherit inputs; };
           home-manager.users.hello = import ./home/default.nix;
-	  home-manager.sharedModules = [
+	 				home-manager.sharedModules = [
 						nixvim.homeModules.nixvim
 						matugen.nixosModules.default
 						niri.homeModules.niri
-	  ];
+	  			];
         }
-	{
+				{
         nixpkgs.config.packageOverrides = pkgs: {
           nur = import nur {
               inherit pkgs;
