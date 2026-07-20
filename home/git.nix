@@ -1,5 +1,5 @@
 {
-	  programs.git = {
+  programs.git = {
     enable = true;
     settings = {
       user = {
@@ -8,5 +8,4 @@
       };
     };
   };
-
 }

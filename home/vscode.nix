@@ -1,5 +1,5 @@
 {
-	  programs.vscode = {
+  programs.vscode = {
     enable = true;
 
     profiles = {
@@ -11,5 +11,4 @@
       };
     };
   };
-
 }

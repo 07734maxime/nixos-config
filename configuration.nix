@@ -1,15 +1,14 @@
-{ lib, pkgs, ... }:
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ./modules/packages.nix
-      ./modules/system.nix
-      ./modules/desktop.nix
-
-		];
-
-
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ./hardware-configuration.nix
+    ./modules/packages.nix
+    ./modules/system.nix
+    ./modules/desktop.nix
+  ];
 
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.grub.enable = false;
@@ -21,34 +20,24 @@
     pkiBundle = "/var/lib/sbctl";
   };
 
-
-
-
   nixpkgs.config.allowUnfree = true;
-	nixpkgs.config.permittedInsecurePackages = [
-  "electron-40.10.5"
-];
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-40.10.5"
+  ];
   programs.dconf.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-
-
   users.users.hello = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" "networkmanager" ];
-		shell = pkgs.zsh;
-	};
+    isNormalUser = true;
+    extraGroups = ["wheel" "networkmanager"];
+    shell = pkgs.zsh;
+  };
 
-	
-	programs.zsh.enable = true;
+	boot.blacklistedKernelModules = [ "pcspkr" ];
 
+  programs.zsh.enable = true;
 
-
-
-  users.users.hello.openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN1gvUOMOxzbopSZ0ISIHlIE4GRab7MHldYPx9yK463f 07734maxime@proton.me" ];
-
+  users.users.hello.openssh.authorizedKeys.keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN1gvUOMOxzbopSZ0ISIHlIE4GRab7MHldYPx9yK463f 07734maxime@proton.me"];
 
   system.stateVersion = "26.05";
-
 }
-

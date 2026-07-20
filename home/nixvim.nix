@@ -38,9 +38,9 @@
       # Explorateur de fichiers
       neo-tree = {
         enable = true;
-				settings = {
-					window.width = 30;
-				};
+        settings = {
+          window.width = 30;
+        };
       };
 
       # Fuzzy finder
@@ -124,12 +124,12 @@
         key = "<leader>xx";
         action = "<cmd>TroubleToggle<CR>";
       }
-			 {
-    mode = "n";
-    key = "<leader>format";
-    action = "function() require('conform').format({ lsp_fallback = true }) end";
-    options.desc = "Formater le fichier";
-  }
+      {
+        mode = "n";
+        key = "<leader>format";
+        action = "function() require('conform').format({ lsp_fallback = true }) end";
+        options.desc = "Formater le fichier";
+      }
     ];
   };
 }
