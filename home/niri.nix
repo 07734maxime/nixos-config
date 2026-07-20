@@ -1,18 +1,5 @@
 { config, pkgs, ... }:
 
-# Conversion niri-flake -> niri-nix, corrigée d'après l'exemple officiel
-# du home-options.md :
-#   - "output" et "window-rule" sont AU SINGULIER (listes de nœuds répétés).
-#   - Une action / un flag SANS argument -> [] (liste vide), pas {}.
-#   - _props pour les propriétés d'un nœud (cooldown-ms, position, app-id...).
-#   - _children pour des enfants répétés de même nom (preset-column-widths).
-#   - _args pour les arguments positionnels (nom d'un output, commande de spawn).
-#
-# ⚠️ Toujours pas 100% confirmé (pas d'exemple officiel vu pour ces parties) :
-#   - "background-effect.blur" (nom exact du nœud selon version de niri)
-#   - la structure "kind.easing" / "kind.spring" des animations
-# A vérifier avec `niri validate` si erreur au build.
-
 {
   wayland.windowManager.niri = {
     enable = true;
@@ -24,25 +11,20 @@
       ];
 
       prefer-no-csd = true;
-      cursor._props.size = 24;
+      cursor.xcursor-size = 24;
 
       window-rule = [
         {
           background-effect.blur = true;
           clip-to-geometry = true;
-          # "geometry-corner-radius" attend un argument positionnel obligatoire
-          # (le rayon appliqué uniformément aux 4 coins).
           geometry-corner-radius = 15.0;
         }
       ];
 
       animations = {
         window-open = {
-          kind.easing = {
-            curve = "cubic-bezier";
-            curve-args = [ 0.22 1.0 0.36 1.0 ];
-            duration-ms = 250;
-          };
+          duration-ms = 250;
+          curve = [ "cubic-bezier" 0.22 1.0 0.36 1.0 ];
           custom-shader = ''
             vec4 open_color(vec3 coords_geo, vec3 size_geo) {
                 float p = niri_clamped_progress;
@@ -69,11 +51,8 @@
         };
 
         window-close = {
-          kind.easing = {
-            curve = "cubic-bezier";
-            curve-args = [ 0.32 0.0 0.67 0.0 ];
-            duration-ms = 200;
-          };
+          duration-ms = 200;
+          curve = [ "cubic-bezier" 0.32 0.0 0.67 0.0 ];
           custom-shader = ''
             vec4 close_color(vec3 coords_geo, vec3 size_geo) {
                 float p = niri_clamped_progress;
@@ -104,8 +83,6 @@
       layout = {
         gaps = 22;
         default-column-width.proportion = 0.5;
-        # "off" est le flag réel de niri pour désactiver le focus-ring,
-        # pas une propriété "enable" -> [] car nœud sans argument.
         focus-ring.off = [ ];
       };
 
@@ -335,7 +312,6 @@
         "Mod+Shift+P".power-off-monitors = [ ];
       };
 
-      # "output" au singulier : liste de nœuds répétés, comme dans l'exemple officiel.
       output = [
         {
           _args = [ "DP-1" ];
@@ -348,7 +324,6 @@
       ];
 
       input = {
-        # Flag simple : sa seule présence active la fonctionnalité.
         focus-follows-mouse = [ ];
         keyboard.xkb = {
           layout = "fr";
