@@ -31,6 +31,7 @@
     swaylock
     playerctl
     brightnessctl
+    cmatrix
   ];
 
   imports = [
@@ -97,6 +98,14 @@
 		extraConfig = ''
 			include /home/hello/.config/kitty/theme.conf
 		'';
+  };
+
+  programs.btop = {
+    enable = true;
+    settings = {
+      vim_keys = true;
+      theme_background = false;
+    };
   };
 
   home.sessionVariables.NIXOS_OZONE_WL = "1";
