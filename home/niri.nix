@@ -10,7 +10,7 @@
         { _args = [ "awww-daemon" ]; }
       ];
 
-      prefer-no-csd = true;
+			prefer-no-csd = true;
       cursor.xcursor-size = 24;
 
       window-rule = [
@@ -19,6 +19,13 @@
           clip-to-geometry = true;
           geometry-corner-radius = 15.0;
         }
+				{
+					match._props.app-id = "waypaper";
+					open-floating = true;
+					open-focused = true;
+					open-on-output = "DP-2";
+					opacity = 0.7;
+				}
       ];
 
       animations = {
@@ -86,13 +93,22 @@
         focus-ring.off = [ ];
       };
 
+			blur = {
+				passes = 4;
+			};
+
       binds = {
         "Mod+Shift+Slash".show-hotkey-overlay = [ ];
 
+				"Mod+X" = {
+					_props.hotkey-overlay-title = "Change Wallpaper";
+					spawn = "waypaper";
+				};
         "Mod+T" = {
           _props.hotkey-overlay-title = "Open a Terminal: kitty";
           spawn = "kitty";
         };
+				"Mod+E".spawn = ["bash" "-c" "kitty -e yazi"];
         "Mod+D" = {
           _props.hotkey-overlay-title = "Run an Application: fuzzel";
           spawn = "fuzzel";
@@ -245,6 +261,8 @@
         "Mod+Shift+WheelScrollUp".focus-column-left = [ ];
         "Mod+Ctrl+Shift+WheelScrollDown".move-column-right = [ ];
         "Mod+Ctrl+Shift+WheelScrollUp".move-column-left = [ ];
+
+				"Mod+Shift+T".spawn = ["bash" "-c" "'kitty -e btop'"];
 
         "Mod+1".focus-workspace = 1;
         "Mod+2".focus-workspace = 2;

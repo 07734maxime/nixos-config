@@ -6,6 +6,9 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+
+
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,7 +48,7 @@
 
         {
           nix.settings = {
-            substituters = [ "https://niri-nix.cachix.org" ];
+            substituters = ["https://niri-nix.cachix.org"];
             trusted-public-keys = [
               "niri-nix.cachix.org-1:SvFtqpDcf7Sm1SMJdby1/+Y+6f3Yt3/3PMcSTKPJNJ0="
             ];
@@ -53,7 +56,7 @@
         }
 
         {
-          nixpkgs.overlays = [ niri-nix.overlays.niri-nix ];
+          nixpkgs.overlays = [niri-nix.overlays.niri-nix];
         }
         lanzaboote.nixosModules.lanzaboote
         home-manager.nixosModules.home-manager

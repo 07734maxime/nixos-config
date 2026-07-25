@@ -34,6 +34,7 @@
   ];
 
   imports = [
+		./matugen.nix
     ./theme.nix
     ./nixvim.nix
     ./firefox.nix

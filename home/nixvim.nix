@@ -1,13 +1,40 @@
-{
+{pkgs, ...}: {
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
 
-    colorschemes.tokyonight.enable = true;
+    colorschemes.tokyonight = {
+      enable = true;
+      settings = {
+        transparent = true;
+      };
+    };
 
     globals.mapleader = " ";
+
+    extraPlugins = [pkgs.vimPlugins.cord-nvim];
+
+    extraConfigLua = ''
+      require("cord").setup({
+        editor = {
+          client = "neovim",
+          tooltip = "The Superior Text Editor",
+        },
+        display = {
+          show_time = true,
+          show_repository = true,
+          show_cursor_position = false,
+        },
+        timer = {
+          interval = 1500,
+          reset_on_idle = false,
+          reset_on_change = false,
+        },
+      })
+
+    '';
 
     opts = {
       number = true;
@@ -25,9 +52,7 @@
       updatetime = 250;
     };
 
-    # --- Plugins "cœur" de LazyVim ---
     plugins = {
-      # UI
       lualine.enable = true;
       bufferline.enable = true;
       web-devicons.enable = true;
@@ -35,7 +60,6 @@
       which-key.enable = true;
       notify.enable = true;
 
-      # Explorateur de fichiers
       neo-tree = {
         enable = true;
         settings = {
@@ -43,7 +67,6 @@
         };
       };
 
-      # Fuzzy finder
       telescope = {
         enable = true;
         extensions.fzf-native.enable = true;
@@ -55,7 +78,6 @@
         };
       };
 
-      # Treesitter
       treesitter = {
         enable = true;
         settings = {
@@ -64,10 +86,8 @@
         };
       };
 
-      # Git
       gitsigns.enable = true;
 
-      # Complétion
       cmp = {
         enable = true;
         settings = {
@@ -84,19 +104,14 @@
       cmp-buffer.enable = true;
       luasnip.enable = true;
 
-      # LSP
       lsp = {
         enable = true;
         servers = {
-          nil_ls.enable = true; # LSP pour Nix
+          nil_ls.enable = true;
           lua_ls.enable = true;
-          pyright.enable = true;
-          ts_ls.enable = true;
-          # ajoutez vos langages ici
         };
       };
 
-      # Formatage / Linting (à la LazyVim: none-ls / conform)
       conform-nvim = {
         enable = true;
         settings.formatters_by_ft = {
@@ -105,29 +120,27 @@
         };
       };
 
-      # Confort
       comment.enable = true;
       autoclose.enable = true;
       trouble.enable = true;
       todo-comments.enable = true;
     };
 
-    # --- Raccourcis clavier globaux ---
     keymaps = [
       {
         mode = "n";
         key = "<leader>e";
         action = "<cmd>Neotree toggle<CR>";
       }
+
       {
         mode = "n";
-        key = "<leader>xx";
-        action = "<cmd>TroubleToggle<CR>";
-      }
-      {
-        mode = "n";
-        key = "<leader>format";
-        action = "function() require('conform').format({ lsp_fallback = true }) end";
+        key = "<leader>cf";
+        action.__raw = ''
+          function()
+          		require("conform").format({ lsp_fallback = true })
+          end
+        '';
         options.desc = "Formater le fichier";
       }
     ];
