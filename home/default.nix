@@ -94,6 +94,9 @@
       background_opacity = "0.7";
       window_padding_width = 25;
     };
+		extraConfig = ''
+			include /home/hello/.config/kitty/theme.conf
+		'';
   };
 
   home.sessionVariables.NIXOS_OZONE_WL = "1";
