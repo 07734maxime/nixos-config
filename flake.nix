@@ -38,6 +38,7 @@
     nixvim,
     niri-nix,
     matugen,
+    nix-vscode-extensions,
     ...
   } @ inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -56,7 +57,10 @@
         }
 
         {
-          nixpkgs.overlays = [niri-nix.overlays.niri-nix];
+          nixpkgs.overlays = [
+            nix-vscode-extensions.overlays.default
+            niri-nix.overlays.niri-nix
+            ];
         }
         lanzaboote.nixosModules.lanzaboote
         home-manager.nixosModules.home-manager
@@ -69,7 +73,6 @@
             nixvim.homeModules.nixvim
             matugen.nixosModules.default
             niri-nix.homeModules.default
-            nix-vscode-extensions.overlays.default
           ];
         }
         {
