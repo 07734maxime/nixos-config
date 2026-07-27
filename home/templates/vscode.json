@@ -1,0 +1,17 @@
+{
+  "workbench.colorCustomizations": {
+    "editor.background": "{{colors.background.default.hex}}",
+    "editor.foreground": "{{colors.on_background.default.hex}}",
+    "sideBar.background": "{{colors.surface.default.hex}}",
+    "activityBar.background": "{{colors.surface.default.hex}}",
+    "titleBar.activeBackground": "{{colors.surface.default.hex}}",
+    "statusBar.background": "{{colors.primary.default.hex}}",
+    "statusBar.foreground": "{{colors.on_primary.default.hex}}",
+    "focusBorder": "{{colors.primary.default.hex}}",
+    "tab.activeBorder": "{{colors.primary.default.hex}}"
+  },
+
+  "editor.fontFamily": "JetBrainsMono Nerd Font",
+  "editor.fontSize": 14,
+  "editor.formatOnSave": true
+}

@@ -24,4 +24,5 @@
   xdg.configFile."matugen/templates/kitty-theme.conf".source = ./templates/kitty-theme.conf;
   xdg.configFile."matugen/templates/fuzzel.ini".source = ./templates/fuzzel.ini;
 	xdg.configFile."matugen/templates/niri-colors.kdl".source = ./templates/niri-colors.kdl;
+  xdg.configFile."matugen/templates/vscode-settings.json".source = ./templates/vscode-settings.json;
 }

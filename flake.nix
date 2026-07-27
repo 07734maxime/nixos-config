@@ -7,7 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -69,6 +69,7 @@
             nixvim.homeModules.nixvim
             matugen.nixosModules.default
             niri-nix.homeModules.default
+            nix-vscode-extensions.overlays.default
           ];
         }
         {
