@@ -23,5 +23,5 @@
   environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
 
 	services.desktopManager.cosmic.enable = true;
-services.displayManager.cosmic-greeter.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
 }

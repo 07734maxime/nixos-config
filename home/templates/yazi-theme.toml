@@ -1,9 +1,0 @@
-[mgr]
-cwd = { fg = "{{colors.primary.default.hex}}" }
-
-[mgr.hovered]
-fg = "{{colors.on_primary.default.hex}}"
-bg = "{{colors.primary.default.hex}}"
-
-[status]
-overall = { bg = "{{colors.surface.default.hex}}" }
