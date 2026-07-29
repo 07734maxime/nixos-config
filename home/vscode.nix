@@ -11,6 +11,7 @@
         extensions = with pkgs.vscode-marketplace; [
       pkief.material-icon-theme
       icrawl.discord-vscode
+      bbenoist.nix
     ];
       };
     };

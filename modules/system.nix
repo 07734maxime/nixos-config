@@ -14,13 +14,13 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
   security.sudo.wheelNeedsPassword = false;
 
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
-        user = "greeter";
-      };
-    };
-  };
+	#services.greetd = {
+	#  enable = false;
+	#  settings = {
+	#    default_session = {
+	#      command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri-session";
+	#      user = "greeter";
+	#    };
+	#  };
+	#};
 }

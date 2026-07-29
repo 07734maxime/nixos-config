@@ -35,14 +35,16 @@
   ];
 
   imports = [
-		./matugen.nix
+		# ./matugen.nix
     ./theme.nix
     ./nixvim.nix
     ./firefox.nix
     ./git.nix
-		./niri.nix
-    ./vscode.nix
+		# ./niri.nix
+    # ./vscode.nix
   ];
+
+
 
 
   programs.zsh = {
