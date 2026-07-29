@@ -13,21 +13,17 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    matugen.url = "github:/InioX/Matugen";
-    awww.url = "git+https://codeberg.org/LGFae/awww";
-    nixvim = {
-      url = "github:nix-community/nixvim";
-    };
 
-    niri-nix.url = "git+https://codeberg.org/BANanaD3V/niri-nix";
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v1.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
   };
   outputs = {
     self,
@@ -36,8 +32,6 @@
     home-manager,
     nur,
     nixvim,
-    niri-nix,
-    matugen,
     nix-vscode-extensions,
     ...
   } @ inputs: {
@@ -59,7 +53,6 @@
         {
           nixpkgs.overlays = [
             nix-vscode-extensions.overlays.default
-            niri-nix.overlays.niri-nix
             ];
         }
         lanzaboote.nixosModules.lanzaboote
@@ -71,8 +64,6 @@
           home-manager.users.hello = import ./home/default.nix;
           home-manager.sharedModules = [
             nixvim.homeModules.nixvim
-            matugen.nixosModules.default
-            niri-nix.homeModules.default
           ];
         }
         {
