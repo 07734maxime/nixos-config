@@ -1,0 +1,2 @@
+# NIXOS CONFIG!!
+basically switched to this branch because i was exhausted of ricing and i'm not even using my computer that much lol.  so i switched to [cosmic DE](https://system76.com/cosmic). i may or may not continue work on the other branch
