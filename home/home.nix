@@ -13,6 +13,7 @@
     ./apps/vim.nix
     ./apps/yazi.nix
     ./niri.nix
+    ./niri/layout.nix
     ./packages.nix
   ];
 
