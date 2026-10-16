@@ -1,0 +1,22 @@
+{
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
+{
+  home.packages = with pkgs; [
+    discord
+    kitty
+    fuzzel
+    mako
+    swaybg
+    swaylock
+    xwayland-satellite
+    wl-clipboard
+    pavucontrol
+    yazi
+    nixfmt
+    playerctl
+  ];
+}
