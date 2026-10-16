@@ -1,7 +1,8 @@
+{ config }:
 {
   "Mod+Shift+Slash".action.show-hotkey-overlay = [ ];
   "Mod+T".action.spawn = "kitty";
-  "Mod+D".action.spawn = "fuzzel";
+  "Mod+D".action.spawn = [ "quickshell" "-n" "-p" "${config.home.homeDirectory}/.config/quickshell/quickhack.qml" ];
 
   XF86AudioRaiseVolume = {
     allow-when-locked = true;
@@ -118,7 +119,7 @@
   "Mod+Shift+Minus".action.set-window-height = "-10%";
   "Mod+Shift+Equal".action.set-window-height = "+10%";
 
-  "Print".action.screenshot = [ ];
+  "Mod+Shift+S".action.screenshot = [ ];
   "Ctrl+Print".action.screenshot-screen = [ ];
   "Alt+Print".action.screenshot-window = [ ];
   "Mod+Shift+E".action.quit = [ ];

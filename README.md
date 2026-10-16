@@ -13,7 +13,7 @@ configured for NVIDIA graphics, and two 1920x1080
 - NVIDIA drivers
 - PipeWire audio
 - Yazi as the XDG portal file chooser
-- Waybar, Kitty, Fuzzel, Mako, Swaylock, and Swaybg (even though not all is configured for now)
+- Waybar, Kitty, a Quickshell Quickhack launcher, Mako, Swaylock, and Swaybg
 - Neovim as the default editor
 - Firefox with uBlock Origin and tracking protection enabled
 - Visual Studio Code with Dracula Theme, Nix IDE, and Material Icon Theme
@@ -46,7 +46,7 @@ configured for NVIDIA graphics, and two 1920x1080
 | Binding | Action |
 | --- | --- |
 | `Mod+T` | Open Kitty |
-| `Mod+D` | Open Fuzzel |
+| `Mod+D` | Open the Quickhack launcher |
 | `Mod+Q` | Close the focused window |
 | `Mod+H/J/K/L` | Focus left/down/up/right |
 | `Mod+Shift+H/J/K/L` | Focus the monitor left/down/up/right |

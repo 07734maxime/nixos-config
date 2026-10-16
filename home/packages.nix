@@ -9,6 +9,7 @@
     discord
     kitty
     fuzzel
+    quickshell
     mako
     swaybg
     swaylock

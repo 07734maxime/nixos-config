@@ -29,6 +29,7 @@
         "workbench.experimental.modernUIEditorTabStyle" = "modern";
         "workbench.editor.showTabs" = "multiple";
         "window.titleBarStyle" = "custom";
+        "window.menuBarVisibility" = "toggle";
         "mutableExtensionsDir" = false;
         "settingsSync.keybindings" = false;
       };
