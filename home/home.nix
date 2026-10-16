@@ -11,7 +11,7 @@
     ./apps/code.nix
     ./apps/firefox.nix
     ./apps/vim.nix
-    ./apps/yazei.nix
+    ./apps/yazi.nix
     ./niri.nix
     ./packages.nix
   ];
