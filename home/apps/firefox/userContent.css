@@ -1,0 +1,270 @@
+/* Cyberdeck // Firefox content: the selection and scrollbars of every page,
+   then the new tab and the about: pages dressed like the shell. Same palette
+   import and fallbacks as userChrome.css, put above this file by firefox.nix. */
+
+:root {
+  --cd-ui: "Rajdhani", sans-serif;
+  --cd-mono: "JetBrains Mono", "JetBrainsMono Nerd Font", monospace;
+  --cd-frame: color-mix(in srgb, var(--cd-primary) 45%, var(--cd-bg));
+  --cd-frame-dim: color-mix(in srgb, var(--cd-primary) 22%, var(--cd-bg));
+}
+
+/* ------------------------------------------------------------------ every page */
+
+::selection {
+  background-color: var(--cd-primary) !important;
+  color: var(--cd-bg) !important;
+}
+
+:root {
+  scrollbar-color: color-mix(in srgb, var(--cd-primary) 55%, transparent) transparent;
+  scrollbar-width: thin;
+}
+
+/* ------------------------------------------------------------------ new tab, home */
+
+@-moz-document url("about:newtab"), url("about:home"), url("about:privatebrowsing") {
+  :root {
+    --newtab-background-color: var(--cd-bg) !important;
+    --newtab-background-color-secondary: var(--cd-surface) !important;
+    --newtab-text-primary-color: var(--cd-fg) !important;
+    --newtab-text-secondary-color: var(--cd-subtle) !important;
+    --newtab-primary-action-background: var(--cd-primary) !important;
+    --newtab-element-hover-color: color-mix(in srgb, var(--cd-primary) 14%, transparent) !important;
+    --newtab-element-active-color: color-mix(in srgb, var(--cd-primary) 24%, transparent) !important;
+    --newtab-border-color: var(--cd-frame-dim) !important;
+    --newtab-wordmark-color: var(--cd-primary) !important;
+    --border-radius-small: 0 !important;
+    --border-radius-medium: 0 !important;
+    --border-radius-large: 0 !important;
+    --border-radius-circle: 0 !important;
+  }
+
+  body {
+    font-family: var(--cd-ui) !important;
+    background-color: var(--cd-bg) !important;
+    /* the grid of the HUD and its scanlines */
+    background-image:
+      repeating-linear-gradient(0deg, color-mix(in srgb, var(--cd-primary) 3%, transparent) 0 1px, transparent 1px 4px),
+      linear-gradient(color-mix(in srgb, var(--cd-primary) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--cd-primary) 6%, transparent) 1px, transparent 1px) !important;
+    background-size: auto, 48px 48px, 48px 48px !important;
+  }
+
+  /* the Firefox logo makes way for the deck's own heading */
+  .logo-and-wordmark,
+  .logo-and-wordmark-wrapper {
+    display: none !important;
+  }
+
+  .search-wrapper::before {
+    content: "NETRUNNER // NEW SESSION";
+    display: block;
+    margin: 0 auto 6px;
+    text-align: center;
+    font-family: var(--cd-ui);
+    font-size: 54px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--cd-primary);
+    text-shadow: 0 0 18px color-mix(in srgb, var(--cd-primary) 45%, transparent);
+  }
+
+  .search-wrapper::after {
+    content: "WAKE UP, SAMURAI. WE HAVE A CITY TO BURN.";
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    font-family: var(--cd-mono);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: color-mix(in srgb, var(--cd-danger) 80%, transparent);
+  }
+
+  .search-handoff-button,
+  .search-inner-wrapper input,
+  .search-wrapper input {
+    border-radius: 0 !important;
+    background-color: var(--cd-surface) !important;
+    border: 1px solid var(--cd-frame) !important;
+    box-shadow: inset 3px 0 0 var(--cd-primary) !important;
+    font-family: var(--cd-mono) !important;
+    color: var(--cd-fg) !important;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .search-handoff-button:hover,
+  .search-wrapper input:focus {
+    border-color: var(--cd-primary) !important;
+  }
+
+  .fake-textbox {
+    color: var(--cd-muted) !important;
+    text-transform: uppercase;
+  }
+
+  /* shortcuts as chamfered slots, like the quick toggles of the control center */
+  .top-site-outer {
+    border-radius: 0 !important;
+  }
+
+  .top-site-outer .tile {
+    border-radius: 0 !important;
+    background-color: color-mix(in srgb, var(--cd-primary) 6%, var(--cd-bg)) !important;
+    box-shadow: inset 0 0 0 1px var(--cd-frame-dim) !important;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+  }
+
+  .top-site-outer:hover .tile {
+    background-color: color-mix(in srgb, var(--cd-primary) 16%, var(--cd-bg)) !important;
+    box-shadow: inset 0 0 0 1px var(--cd-primary) !important;
+  }
+
+  .top-site-outer .title,
+  .top-site-outer .title span {
+    font-family: var(--cd-ui) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--cd-subtle) !important;
+  }
+
+  .top-site-outer:hover .title span {
+    color: var(--cd-fg) !important;
+  }
+
+  .top-site-outer .tile .icon-wrapper,
+  .top-site-outer .default-icon,
+  .top-site-outer .screenshot,
+  .top-site-outer .tile .top-site-icon {
+    border-radius: 0 !important;
+  }
+
+  .context-menu,
+  .personalize-button,
+  .customize-menu {
+    border-radius: 0 !important;
+    font-family: var(--cd-ui) !important;
+  }
+
+  .context-menu {
+    background: var(--cd-bg) !important;
+    border: 1px solid var(--cd-frame) !important;
+  }
+
+  .context-menu-item button:hover {
+    background: var(--cd-primary) !important;
+    color: var(--cd-bg) !important;
+  }
+
+  /* private windows: the Blackwall red */
+  .showPrivate .search-wrapper::before,
+  body.private .search-wrapper::before {
+    content: "GHOST MODE // NO TRACE";
+    color: var(--cd-danger);
+  }
+}
+
+/* ------------------------------------------------------------------ about: pages */
+
+@-moz-document url-prefix("about:preferences"), url-prefix("about:addons"), url-prefix("about:config"),
+  url-prefix("about:downloads"), url-prefix("about:logins"), url-prefix("about:profiles"),
+  url-prefix("about:support"), url-prefix("about:protections"), url-prefix("about:debugging"),
+  url-prefix("about:certificate"), url-prefix("about:neterror"), url-prefix("about:certerror"),
+  url-prefix("about:tabcrashed"), url-prefix("about:settings") {
+  :root {
+    --in-content-page-background: var(--cd-bg) !important;
+    --in-content-page-color: var(--cd-fg) !important;
+    --in-content-text-color: var(--cd-fg) !important;
+    --in-content-deemphasized-text: var(--cd-subtle) !important;
+    --in-content-box-background: var(--cd-surface) !important;
+    --in-content-box-background-hover: color-mix(in srgb, var(--cd-primary) 10%, var(--cd-surface)) !important;
+    --in-content-box-background-active: color-mix(in srgb, var(--cd-primary) 20%, var(--cd-surface)) !important;
+    --in-content-box-border-color: var(--cd-frame-dim) !important;
+    --in-content-border-color: var(--cd-frame-dim) !important;
+    --in-content-border-hover: var(--cd-primary) !important;
+    --in-content-item-hover: color-mix(in srgb, var(--cd-primary) 14%, transparent) !important;
+    --in-content-item-selected: var(--cd-primary) !important;
+    --in-content-item-selected-text: var(--cd-bg) !important;
+    --in-content-accent-color: var(--cd-primary) !important;
+    --in-content-accent-color-active: var(--cd-primary) !important;
+    --in-content-primary-button-background: var(--cd-warn) !important;
+    --in-content-primary-button-background-hover: color-mix(in srgb, var(--cd-warn) 80%, var(--cd-white)) !important;
+    --in-content-primary-button-text-color: var(--cd-bg) !important;
+    --in-content-button-background: color-mix(in srgb, var(--cd-primary) 10%, transparent) !important;
+    --in-content-button-background-hover: color-mix(in srgb, var(--cd-primary) 20%, transparent) !important;
+    --in-content-link-color: var(--cd-secondary) !important;
+    --in-content-link-color-hover: var(--cd-bright) !important;
+    --in-content-table-background: var(--cd-surface) !important;
+    --in-content-table-header-background: var(--cd-primary) !important;
+    --in-content-table-header-color: var(--cd-bg) !important;
+    --in-content-focus-outline-color: var(--cd-primary) !important;
+    --color-accent-primary: var(--cd-primary) !important;
+    --color-accent-primary-hover: color-mix(in srgb, var(--cd-primary) 80%, var(--cd-white)) !important;
+    --background-color-canvas: var(--cd-bg) !important;
+    --background-color-box: var(--cd-surface) !important;
+    --text-color: var(--cd-fg) !important;
+    --text-color-deemphasized: var(--cd-subtle) !important;
+    --border-color: var(--cd-frame-dim) !important;
+    --link-color: var(--cd-secondary) !important;
+    --button-background-color-primary: var(--cd-warn) !important;
+    --button-text-color-primary: var(--cd-bg) !important;
+    --border-radius-small: 0 !important;
+    --border-radius-medium: 0 !important;
+    --border-radius-large: 0 !important;
+    --border-radius-circle: 0 !important;
+    --focus-outline-color: var(--cd-primary) !important;
+  }
+
+  body {
+    font-family: var(--cd-ui) !important;
+    font-size: 16px !important;
+  }
+
+  h1, h2, h3, .header-name, .section-header, .main-heading {
+    font-family: var(--cd-ui) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    color: var(--cd-primary) !important;
+  }
+
+  button, select, input, textarea, .card, moz-card, .category {
+    border-radius: 0 !important;
+  }
+
+  input, textarea, code, pre, .table-wrapper td {
+    font-family: var(--cd-mono) !important;
+  }
+
+  /* the selected category gets the accent bar of the shell's lists */
+  .category[selected],
+  .category[aria-selected="true"] {
+    box-shadow: inset 3px 0 0 var(--cd-primary) !important;
+    color: var(--cd-primary) !important;
+  }
+
+  .card,
+  moz-card {
+    border: 1px solid var(--cd-frame-dim) !important;
+    box-shadow: inset 3px 0 0 var(--cd-frame) !important;
+  }
+}
+
+/* errors: the ICE refused the connection */
+@-moz-document url-prefix("about:neterror"), url-prefix("about:certerror") {
+  .title-text,
+  #errorTitleText {
+    color: var(--cd-danger) !important;
+  }
+
+  .container::before {
+    content: "ICE BREACH FAILED // CONNECTION REFUSED";
+    display: block;
+    margin-bottom: 16px;
+    font-family: var(--cd-mono);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--cd-danger);
+  }
+}

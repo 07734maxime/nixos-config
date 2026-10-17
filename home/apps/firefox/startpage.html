@@ -1,0 +1,220 @@
+<!doctype html>
+<!-- Cyberdeck // Firefox home page: the clock, the weather of the city, a
+     search line and the shortcuts, in the language of the shell. Colours come
+     from the palette cyberdeck-theme writes for the live OS (@STATE@); the
+     engraved one stays underneath when it is missing. Edit LINKS and ENGINE. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>NETRUNNER // NEW SESSION</title>
+<style>
+:root { @FALLBACK@ }
+</style>
+<link rel="stylesheet" href="file://@STATE@/firefox.css">
+<style>
+:root {
+  --frame: color-mix(in srgb, var(--cd-primary) 45%, var(--cd-bg));
+  --frame-dim: color-mix(in srgb, var(--cd-primary) 22%, var(--cd-bg));
+  --ui: "Rajdhani", sans-serif;
+  --mono: "JetBrains Mono", "JetBrainsMono Nerd Font", monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+::selection { background: var(--cd-primary); color: var(--cd-bg); }
+html, body { height: 100%; }
+body {
+  background-color: var(--cd-bg);
+  background-image:
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--cd-primary) 3%, transparent) 0 1px, transparent 1px 4px),
+    linear-gradient(color-mix(in srgb, var(--cd-primary) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--cd-primary) 6%, transparent) 1px, transparent 1px);
+  background-size: auto, 48px 48px, 48px 48px;
+  color: var(--cd-fg);
+  font-family: var(--ui);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.micro { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; color: color-mix(in srgb, var(--cd-subtle) 70%, transparent); }
+main { width: min(980px, 92vw); display: flex; flex-direction: column; gap: 26px; }
+
+/* corners of the HUD */
+.corner { position: fixed; width: 26px; height: 26px; border-color: var(--frame); border-style: solid; }
+.tl { top: 18px; left: 18px; border-width: 2px 0 0 2px; }
+.tr { top: 18px; right: 18px; border-width: 2px 2px 0 0; }
+.bl { bottom: 18px; left: 18px; border-width: 0 0 2px 2px; }
+.br { bottom: 18px; right: 18px; border-width: 0 2px 2px 0; }
+.edge { position: fixed; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; color: var(--frame); }
+.edge.top { top: 22px; left: 56px; }
+.edge.bottom { bottom: 22px; right: 56px; }
+
+/* time block */
+.head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--frame-dim); padding-bottom: 14px; position: relative; }
+.head::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 28%; height: 2px; background: var(--cd-primary); }
+.clock { font-size: 128px; line-height: 0.82; font-weight: 700; color: var(--cd-warn); letter-spacing: 0.02em; text-shadow: 0 0 24px color-mix(in srgb, var(--cd-warn) 35%, transparent); }
+.clock .sec { font-size: 40px; color: color-mix(in srgb, var(--cd-warn) 70%, transparent); margin-left: 8px; }
+.date { text-align: right; }
+.date .day { font-size: 34px; font-weight: 700; letter-spacing: 0.08em; color: var(--cd-fg); }
+.date .greet { font-size: 18px; font-weight: 700; letter-spacing: 0.12em; color: var(--cd-primary); }
+
+/* weather strip */
+.wx { display: flex; gap: 10px; align-items: stretch; }
+.chip { border: 1px solid var(--frame-dim); background: color-mix(in srgb, var(--cd-primary) 5%, var(--cd-bg)); padding: 8px 14px; clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%); }
+.chip b { display: block; font-size: 22px; color: var(--cd-fg); letter-spacing: 0.04em; }
+.chip span { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; color: var(--cd-subtle); }
+.chip.hot b { color: var(--cd-secondary); }
+
+/* search line */
+form { position: relative; }
+form::before { content: ">"; position: absolute; z-index: 1; left: 20px; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--cd-primary); }
+input {
+  width: 100%; height: 62px; padding: 0 20px 0 50px;
+  background: var(--cd-surface); color: var(--cd-fg);
+  border: 1px solid var(--frame); outline: none;
+  box-shadow: inset 3px 0 0 var(--cd-primary);
+  font-family: var(--mono); font-size: 18px;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+input:focus { border-color: var(--cd-primary); background: color-mix(in srgb, var(--cd-primary) 6%, var(--cd-bg)); }
+input::placeholder { color: var(--cd-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.engine { position: absolute; right: 22px; top: 50%; transform: translateY(-50%); }
+
+/* shortcuts, numbered like the quickhack slots */
+.links { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+.links a {
+  position: relative; display: flex; flex-direction: column; gap: 2px;
+  padding: 12px 14px 12px 18px; text-decoration: none;
+  background: color-mix(in srgb, var(--cd-primary) 4%, var(--cd-bg));
+  border: 1px solid var(--frame-dim);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+  transition: background 120ms, border-color 120ms;
+}
+.links a::before { content: ""; position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px; background: var(--frame); }
+.links a:hover, .links a:focus { background: color-mix(in srgb, var(--cd-primary) 16%, var(--cd-bg)); border-color: var(--cd-primary); outline: none; }
+.links a:hover::before { background: var(--cd-primary); }
+.links .n { font-family: var(--mono); font-size: 10px; font-weight: 700; color: var(--cd-primary); }
+.links .t { font-size: 19px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cd-fg); }
+.links .u { font-family: var(--mono); font-size: 10px; color: var(--cd-subtle); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.foot { display: flex; justify-content: space-between; }
+.keys span { border: 1px solid var(--frame); padding: 1px 6px; margin-right: 4px; color: var(--cd-subtle); }
+.whisper { color: color-mix(in srgb, var(--cd-danger) 80%, transparent); }
+</style>
+</head>
+<body>
+<div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+<div class="edge top">CYBERDECK // NETRUNNER INTERFACE // FIREFOX</div>
+<div class="edge bottom" id="stamp">NC-NET</div>
+
+<main>
+  <section class="head">
+    <div class="clock" id="clock">--:--<span class="sec" id="sec">--</span></div>
+    <div class="date">
+      <div class="greet" id="greet">WELCOME BACK</div>
+      <div class="day" id="day">----</div>
+      <div class="micro" id="week">NIGHT CITY</div>
+    </div>
+  </section>
+
+  <section class="wx" id="wx">
+    <div class="chip"><b>SCANNING...</b><span>ATMOS // WTTR.IN</span></div>
+  </section>
+
+  <form id="search" autocomplete="off">
+    <input id="q" name="q" placeholder="Scan the net..." autofocus>
+    <span class="engine micro" id="engine">ENTER // SEARCH</span>
+  </form>
+
+  <nav class="links" id="links"></nav>
+
+  <div class="foot micro">
+    <div class="keys"><span>/</span>SEARCH &nbsp; <span>1-9</span>JACK INTO A SHORTCUT</div>
+    <div class="whisper" id="whisper"></div>
+  </div>
+</main>
+
+<script>
+// the search engine and the shortcuts: edit freely
+const ENGINE = { name: "DUCKDUCKGO", url: "https://duckduckgo.com/?q=" };
+const LINKS = [
+  { title: "GitHub", url: "https://github.com" },
+  { title: "YouTube", url: "https://www.youtube.com" },
+  { title: "NixOS Packages", url: "https://search.nixos.org/packages" },
+  { title: "Home Manager", url: "https://home-manager-options.extranix.com" },
+  { title: "Niri Wiki", url: "https://github.com/YaLTeR/niri/wiki" },
+  { title: "Quickshell", url: "https://quickshell.org/docs" },
+  { title: "Reddit", url: "https://www.reddit.com" },
+  { title: "Claude", url: "https://claude.ai" }
+];
+
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2, "0");
+
+function tick() {
+  const d = new Date();
+  const h = d.getHours();
+  $("clock").firstChild.nodeValue = pad(h) + ":" + pad(d.getMinutes());
+  $("sec").textContent = pad(d.getSeconds());
+  $("day").textContent = d.toLocaleDateString("en-GB", { weekday: "long", day: "2-digit", month: "long" }).toUpperCase();
+  $("greet").textContent = h < 5 ? "STILL JACKED IN, NETRUNNER?" : h < 12 ? "GOOD MORNING, NIGHT CITY" : h < 18 ? "GOOD AFTERNOON, CHOOM" : h < 22 ? "GOOD EVENING, MERC" : "THE CITY NEVER SLEEPS";
+  const start = new Date(d.getFullYear(), 0, 1);
+  const week = Math.ceil(((d - start) / 86400000 + start.getDay() + 1) / 7);
+  $("week").textContent = "WEEK " + pad(week) + " // " + d.getFullYear() + " // NIGHT CITY";
+  $("stamp").textContent = "NC-NET // " + d.toISOString().slice(0, 19).replace("T", " ") + " UTC";
+}
+tick();
+setInterval(tick, 1000);
+
+$("links").innerHTML = LINKS.map((l, i) =>
+  `<a href="${l.url}"><span class="n">${pad(i + 1)}</span><span class="t">${l.title}</span><span class="u">${l.url.replace(/^https?:\/\//, "")}</span></a>`
+).join("");
+
+$("engine").textContent = "ENTER // " + ENGINE.name;
+$("search").addEventListener("submit", e => {
+  e.preventDefault();
+  const q = $("q").value.trim();
+  if (!q) return;
+  // a URL goes straight there, anything else is searched
+  location.href = /^(https?:\/\/|[\w-]+(\.[\w-]+)+(\/|$))/i.test(q) && !/\s/.test(q)
+    ? (/^https?:/i.test(q) ? q : "https://" + q)
+    : ENGINE.url + encodeURIComponent(q);
+});
+
+document.addEventListener("keydown", e => {
+  if (document.activeElement === $("q")) {
+    if (e.key === "Escape") $("q").blur();
+    return;
+  }
+  if (e.key === "/") { e.preventDefault(); $("q").focus(); }
+  else if (/^[1-9]$/.test(e.key) && LINKS[+e.key - 1]) location.href = LINKS[+e.key - 1].url;
+});
+
+// the street names of the weather, like the control center
+function slang(code) {
+  const c = +code;
+  if (c === 113) return "CLEAR SKIES";
+  if (c === 116) return "BROKEN CLOUDS";
+  if (c === 119 || c === 122) return "SMOG CEILING";
+  if ([143, 248, 260].includes(c)) return "TOXIC FOG";
+  if ([200, 386, 389, 392, 395].includes(c)) return "ELECTRICAL STORM";
+  if ([179, 227, 230, 323, 326, 329, 332, 335, 338, 368, 371, 374, 377, 350, 362, 365, 182, 317, 320].includes(c)) return "ASH SNOW";
+  return "ACID RAIN";
+}
+
+fetch("https://wttr.in/?format=j1")
+  .then(r => r.json())
+  .then(w => {
+    const now = w.current_condition[0];
+    const area = w.nearest_area && w.nearest_area[0] ? w.nearest_area[0].areaName[0].value.toUpperCase() : "NIGHT CITY";
+    const days = (w.weather || []).slice(1, 3).map(d =>
+      `<div class="chip"><b>${d.maxtempC}° / ${d.mintempC}°</b><span>${new Date(d.date + "T12:00").toLocaleDateString("en-GB", { weekday: "short" }).toUpperCase()}</span></div>`).join("");
+    $("wx").innerHTML =
+      `<div class="chip hot"><b>${now.temp_C}°C</b><span>${area}</span></div>` +
+      `<div class="chip"><b>${slang(now.weatherCode)}</b><span>FEELS ${now.FeelsLikeC}° // HUM ${now.humidity}% // WIND ${now.windspeedKmph} KM/H</span></div>` + days;
+  })
+  .catch(() => { $("wx").innerHTML = `<div class="chip"><b style="color:var(--cd-danger)">UPLINK LOST</b><span>ATMOS // WTTR.IN</span></div>`; });
+
+// once in a while, something answers from the other side
+const whispers = ["THE WALL IS LISTENING", "WE SEE YOU", "LET US IN", "IT REMEMBERS YOUR NAME", "0.0.0.0 IS CALLING"];
+if (Math.random() < 0.2) $("whisper").textContent = "// " + whispers[Math.floor(Math.random() * whispers.length)];
+</script>
+</body>
+</html>

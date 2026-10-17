@@ -1,5 +1,5 @@
 {
-    programs.yazi = {
+  programs.yazi = {
     enable = true;
     settings = {
       mgr = {

@@ -1,0 +1,521 @@
+/* Cyberdeck // Firefox chrome, in the language of the shell: dark plates,
+   chamfered corners, neon edges, Rajdhani capitals, numbered tabs.
+   The palette (--cd-*) comes from @PALETTE@, rewritten by cyberdeck-theme
+   for the live OS; firefox.nix puts the import and the engraved fallbacks
+   above this file. Firefox reads it when it starts. */
+
+:root {
+  --cd-ui: "Rajdhani", sans-serif;
+  --cd-mono: "JetBrains Mono", "JetBrainsMono Nerd Font", monospace;
+  --cd-cut: 9px;
+  --cd-frame: color-mix(in srgb, var(--cd-primary) 45%, var(--cd-bg));
+  --cd-frame-dim: color-mix(in srgb, var(--cd-primary) 22%, var(--cd-bg));
+  --cd-glass: color-mix(in srgb, var(--cd-bg) 94%, transparent);
+
+  /* Firefox's own theme variables, so every built-in widget follows */
+  --lwt-accent-color: var(--cd-bg) !important;
+  --lwt-text-color: var(--cd-fg) !important;
+  --toolbar-bgcolor: var(--cd-bg) !important;
+  --toolbar-color: var(--cd-fg) !important;
+  --toolbox-bgcolor: var(--cd-bg) !important;
+  --toolbox-textcolor: var(--cd-fg) !important;
+  --toolbox-bgcolor-inactive: var(--cd-bg) !important;
+  --toolbox-textcolor-inactive: var(--cd-subtle) !important;
+  --tab-selected-bgcolor: color-mix(in srgb, var(--cd-primary) 16%, var(--cd-bg)) !important;
+  --tab-selected-textcolor: var(--cd-bright) !important;
+  --tab-loading-fill: var(--cd-warn) !important;
+  --tab-border-radius: 0 !important;
+  --tab-min-height: 32px !important;
+  --toolbarbutton-border-radius: 0 !important;
+  --toolbarbutton-hover-background: color-mix(in srgb, var(--cd-primary) 16%, transparent) !important;
+  --toolbarbutton-active-background: color-mix(in srgb, var(--cd-primary) 30%, transparent) !important;
+  --toolbarbutton-icon-fill: var(--cd-fg) !important;
+  --toolbarbutton-icon-fill-attention: var(--cd-warn) !important;
+  --toolbar-field-background-color: var(--cd-surface) !important;
+  --toolbar-field-color: var(--cd-fg) !important;
+  --toolbar-field-focus-background-color: color-mix(in srgb, var(--cd-primary) 6%, var(--cd-bg)) !important;
+  --toolbar-field-focus-color: var(--cd-bright) !important;
+  --toolbar-field-border-color: var(--cd-frame-dim) !important;
+  --toolbar-field-focus-border-color: var(--cd-primary) !important;
+  --urlbar-box-bgcolor: transparent !important;
+  --urlbar-box-hover-bgcolor: color-mix(in srgb, var(--cd-primary) 16%, transparent) !important;
+  --urlbarView-highlight-background: var(--cd-primary) !important;
+  --urlbarView-highlight-color: var(--cd-bg) !important;
+  --urlbarView-hover-background: color-mix(in srgb, var(--cd-primary) 12%, transparent) !important;
+  --urlbarView-separator-color: var(--cd-frame-dim) !important;
+  --urlbar-icon-border-radius: 0 !important;
+  --chrome-content-separator-color: var(--cd-frame) !important;
+  --focus-outline-color: var(--cd-primary) !important;
+  --attention-icon-color: var(--cd-warn) !important;
+  --arrowpanel-background: var(--cd-glass) !important;
+  --arrowpanel-color: var(--cd-fg) !important;
+  --arrowpanel-border-color: var(--cd-frame) !important;
+  --arrowpanel-border-radius: 0 !important;
+  --arrowpanel-dimmed: color-mix(in srgb, var(--cd-primary) 12%, transparent) !important;
+  --arrowpanel-dimmed-further: color-mix(in srgb, var(--cd-primary) 22%, transparent) !important;
+  --panel-separator-color: var(--cd-frame-dim) !important;
+  --panel-item-hover-bgcolor: color-mix(in srgb, var(--cd-primary) 16%, transparent) !important;
+  --panel-item-active-bgcolor: color-mix(in srgb, var(--cd-primary) 28%, transparent) !important;
+  --panel-banner-item-background-color: color-mix(in srgb, var(--cd-primary) 10%, transparent) !important;
+  --menu-background-color: var(--cd-glass) !important;
+  --menu-color: var(--cd-fg) !important;
+  --menu-border-color: var(--cd-frame) !important;
+  --menuitem-hover-background-color: var(--cd-primary) !important;
+  --menuitem-disabled-hover-background-color: transparent !important;
+  --menu-disabled-color: var(--cd-muted) !important;
+  --sidebar-background-color: var(--cd-bg) !important;
+  --sidebar-text-color: var(--cd-fg) !important;
+  --sidebar-border-color: var(--cd-frame-dim) !important;
+  --button-bgcolor: color-mix(in srgb, var(--cd-primary) 10%, transparent) !important;
+  --button-hover-bgcolor: color-mix(in srgb, var(--cd-primary) 20%, transparent) !important;
+  --button-active-bgcolor: color-mix(in srgb, var(--cd-primary) 30%, transparent) !important;
+  --button-primary-bgcolor: var(--cd-primary) !important;
+  --button-primary-hover-bgcolor: color-mix(in srgb, var(--cd-primary) 80%, var(--cd-white)) !important;
+  --button-primary-color: var(--cd-bg) !important;
+  --border-radius-small: 0 !important;
+  --border-radius-medium: 0 !important;
+  --border-radius-large: 0 !important;
+  --border-radius-circle: 0 !important;
+  --identity-icon-color: var(--cd-primary) !important;
+}
+
+/* ------------------------------------------------------------------ frame */
+
+#navigator-toolbox {
+  background: var(--cd-bg) !important;
+  border-bottom: 1px solid var(--cd-frame) !important;
+  font-family: var(--cd-ui) !important;
+}
+
+/* the neon rule under the toolbars, primary then secondary, like the bar */
+#navigator-toolbox::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cd-primary) 0 28%, transparent 28% 70%, color-mix(in srgb, var(--cd-secondary) 70%, transparent) 70% 100%);
+}
+
+/* niri draws no titlebar: Firefox's own window buttons go */
+.titlebar-buttonbox-container,
+.titlebar-spacer[type="pre-tabs"],
+.titlebar-spacer[type="post-tabs"] {
+  display: none !important;
+}
+
+/* ------------------------------------------------------------------ tabs */
+
+#TabsToolbar {
+  background: var(--cd-bg) !important;
+  padding-inline-start: 6px !important;
+}
+
+#tabbrowser-arrowscrollbox {
+  counter-reset: cd-tab;
+}
+
+.tabbrowser-tab {
+  counter-increment: cd-tab;
+  padding-inline: 2px !important;
+}
+
+.tabbrowser-tab .tab-background {
+  margin-block: 4px !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  clip-path: polygon(0 0, calc(100% - var(--cd-cut)) 0, 100% var(--cd-cut), 100% 100%, 0 100%);
+}
+
+.tabbrowser-tab:hover:not([selected]) .tab-background {
+  background: color-mix(in srgb, var(--cd-primary) 8%, transparent) !important;
+}
+
+/* the open tab: filled plate, neon edge, the accent bar on its left */
+.tabbrowser-tab[selected] .tab-background,
+.tabbrowser-tab[multiselected] .tab-background {
+  background:
+    linear-gradient(90deg, var(--cd-primary) 0 3px, transparent 3px),
+    color-mix(in srgb, var(--cd-primary) 16%, var(--cd-bg)) !important;
+  border-color: color-mix(in srgb, var(--cd-primary) 70%, transparent) !important;
+}
+
+.tab-label {
+  font-family: var(--cd-ui) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: var(--cd-subtle) !important;
+}
+
+.tabbrowser-tab:hover .tab-label {
+  color: var(--cd-fg) !important;
+}
+
+.tabbrowser-tab[selected] .tab-label {
+  color: var(--cd-bright) !important;
+}
+
+/* 01, 02... like the workspaces of the bar */
+.tabbrowser-tab:not([pinned]) .tab-content::before {
+  content: counter(cd-tab, decimal-leading-zero);
+  margin-inline-end: 7px;
+  font-family: var(--cd-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--cd-primary) 55%, transparent);
+}
+
+.tabbrowser-tab[selected]:not([pinned]) .tab-content::before {
+  color: var(--cd-primary);
+}
+
+/* sound playing: the tab label goes warn, like an active braindance */
+.tabbrowser-tab[soundplaying] .tab-label {
+  color: var(--cd-warn) !important;
+}
+
+.tab-close-button {
+  border-radius: 0 !important;
+  opacity: 0;
+}
+
+.tabbrowser-tab:hover .tab-close-button,
+.tabbrowser-tab[selected] .tab-close-button {
+  opacity: 0.8;
+}
+
+.tab-close-button:hover {
+  background: color-mix(in srgb, var(--cd-danger) 30%, transparent) !important;
+  fill: var(--cd-danger) !important;
+  opacity: 1;
+}
+
+.tab-throbber,
+.tab-icon-pending {
+  fill: var(--cd-warn) !important;
+}
+
+#tabs-newtab-button,
+#new-tab-button {
+  fill: var(--cd-primary) !important;
+}
+
+/* tab groups follow the plates */
+.tab-group-label {
+  border-radius: 0 !important;
+  font-family: var(--cd-ui) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+/* ------------------------------------------------------------------ toolbars */
+
+#nav-bar,
+#PersonalToolbar {
+  background: var(--cd-bg) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#PersonalToolbar {
+  font-family: var(--cd-ui) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  border-top: 1px solid var(--cd-frame-dim) !important;
+}
+
+#PersonalToolbar toolbarbutton.bookmark-item {
+  border-radius: 0 !important;
+}
+
+#PersonalToolbar toolbarbutton.bookmark-item:hover {
+  background: color-mix(in srgb, var(--cd-primary) 16%, transparent) !important;
+  box-shadow: inset 0 -2px 0 var(--cd-primary) !important;
+}
+
+/* square buttons with a neon outline on hover */
+toolbarbutton .toolbarbutton-icon,
+toolbarbutton .toolbarbutton-badge-stack,
+toolbarbutton .toolbarbutton-text {
+  border-radius: 0 !important;
+}
+
+#nav-bar toolbarbutton:not([disabled]):hover > .toolbarbutton-icon,
+#nav-bar toolbarbutton:not([disabled]):hover > .toolbarbutton-badge-stack {
+  outline: 1px solid color-mix(in srgb, var(--cd-primary) 60%, transparent) !important;
+  outline-offset: -1px !important;
+}
+
+#nav-bar toolbarbutton[open] > .toolbarbutton-icon,
+#nav-bar toolbarbutton[open] > .toolbarbutton-badge-stack {
+  background: var(--cd-primary) !important;
+  fill: var(--cd-bg) !important;
+}
+
+.toolbarbutton-badge {
+  border-radius: 0 !important;
+  background: var(--cd-warn) !important;
+  color: var(--cd-bg) !important;
+  box-shadow: none !important;
+  font-family: var(--cd-mono) !important;
+  font-weight: 700 !important;
+}
+
+/* ------------------------------------------------------------------ url bar */
+
+#urlbar-background {
+  border-radius: 0 !important;
+  border: 1px solid var(--cd-frame-dim) !important;
+  background: var(--cd-surface) !important;
+  box-shadow: inset 3px 0 0 var(--cd-frame) !important;
+}
+
+#urlbar:not([breakout-extend]) #urlbar-background {
+  clip-path: polygon(0 0, calc(100% - var(--cd-cut)) 0, 100% var(--cd-cut), 100% 100%, var(--cd-cut) 100%, 0 calc(100% - var(--cd-cut)));
+}
+
+#urlbar[focused] #urlbar-background {
+  border-color: var(--cd-primary) !important;
+  background: color-mix(in srgb, var(--cd-primary) 6%, var(--cd-bg)) !important;
+  box-shadow: inset 3px 0 0 var(--cd-primary), 0 0 14px color-mix(in srgb, var(--cd-primary) 25%, transparent) !important;
+  outline: none !important;
+}
+
+#urlbar-input,
+.searchbar-textbox {
+  font-family: var(--cd-mono) !important;
+  font-size: 13px !important;
+  color: var(--cd-fg) !important;
+}
+
+#urlbar-input::placeholder {
+  color: var(--cd-muted) !important;
+  text-transform: uppercase;
+}
+
+#urlbar ::selection {
+  background: var(--cd-primary) !important;
+  color: var(--cd-bg) !important;
+}
+
+#identity-box,
+#tracking-protection-icon-container,
+.urlbar-page-action,
+#identity-icon-box,
+#identity-permission-box {
+  border-radius: 0 !important;
+}
+
+#identity-box[pageproxystate="valid"].verifiedDomain #identity-icon,
+#identity-box[pageproxystate="valid"].verifiedIdentity #identity-icon {
+  fill: var(--cd-ok) !important;
+}
+
+#identity-box[pageproxystate="valid"].notSecure #identity-icon {
+  fill: var(--cd-danger) !important;
+}
+
+/* the drop-down of suggestions, a HUD list */
+.urlbarView {
+  font-family: var(--cd-ui) !important;
+  font-size: 15px !important;
+  margin-inline: 0 !important;
+}
+
+.urlbarView-row {
+  border-radius: 0 !important;
+}
+
+.urlbarView-row[selected] {
+  box-shadow: inset 3px 0 0 var(--cd-warn) !important;
+}
+
+.urlbarView-url,
+.urlbarView-action {
+  font-family: var(--cd-mono) !important;
+  font-size: 12px !important;
+}
+
+.urlbarView-row:not([selected]) .urlbarView-url {
+  color: var(--cd-secondary) !important;
+}
+
+.urlbarView-row:not([selected]) .urlbarView-action {
+  color: var(--cd-warn) !important;
+}
+
+.search-one-offs .searchbar-engine-one-off-item {
+  border-radius: 0 !important;
+}
+
+/* ------------------------------------------------------------------ panels and menus */
+
+panel,
+menupopup {
+  --panel-border-radius: 0 !important;
+  --panel-padding: 4px !important;
+  --panel-shadow-margin: 4px !important;
+}
+
+.panel-arrowcontent,
+.panel-viewstack,
+panelview,
+menupopup::part(content) {
+  border-radius: 0 !important;
+}
+
+.panel-arrowcontent,
+menupopup::part(content) {
+  border: 1px solid var(--cd-frame) !important;
+  box-shadow: inset 3px 0 0 var(--cd-primary), 0 8px 24px rgba(0, 0, 0, 0.55) !important;
+}
+
+panelview,
+menupopup,
+menuitem,
+menu {
+  font-family: var(--cd-ui) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+menuitem,
+menu,
+.subviewbutton,
+.toolbarbutton-1.subviewbutton {
+  border-radius: 0 !important;
+}
+
+menuitem[_moz-menuactive]:not([disabled]),
+menu[_moz-menuactive]:not([disabled]) {
+  background-color: var(--cd-primary) !important;
+  color: var(--cd-bg) !important;
+}
+
+menuitem[_moz-menuactive] .menu-accel,
+menuitem[_moz-menuactive] .menu-text,
+menu[_moz-menuactive] .menu-text {
+  color: var(--cd-bg) !important;
+}
+
+.menu-accel,
+.subviewbutton > .menu-accel-container {
+  font-family: var(--cd-mono) !important;
+  font-size: 11px !important;
+  color: var(--cd-subtle) !important;
+}
+
+menuseparator,
+toolbarseparator {
+  border-color: var(--cd-frame-dim) !important;
+}
+
+.panel-header,
+.panel-subview-header {
+  font-family: var(--cd-ui) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: var(--cd-primary) !important;
+  border-bottom: 1px solid var(--cd-frame-dim) !important;
+}
+
+.subviewbutton:hover {
+  box-shadow: inset 3px 0 0 var(--cd-primary) !important;
+}
+
+/* the yellow call to action of the game for the main buttons */
+button.footer-button[default],
+.panel-footer button[default],
+.popup-notification-primary-button {
+  border-radius: 0 !important;
+  background: var(--cd-warn) !important;
+  color: var(--cd-bg) !important;
+  font-family: var(--cd-ui) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+button.footer-button,
+.popup-notification-secondary-button {
+  border-radius: 0 !important;
+  font-family: var(--cd-ui) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+}
+
+tooltip,
+.tooltip {
+  appearance: none !important;
+  background: var(--cd-bg) !important;
+  color: var(--cd-fg) !important;
+  border: 1px solid var(--cd-frame) !important;
+  border-radius: 0 !important;
+  font-family: var(--cd-ui) !important;
+  font-weight: 600 !important;
+}
+
+/* ------------------------------------------------------------------ sidebar, find bar, downloads */
+
+#sidebar-box,
+#sidebar-main,
+sidebar-main,
+#sidebar-header {
+  background: var(--cd-bg) !important;
+  font-family: var(--cd-ui) !important;
+}
+
+#sidebar-splitter {
+  border-color: var(--cd-frame-dim) !important;
+  background: var(--cd-frame-dim) !important;
+}
+
+findbar {
+  background: var(--cd-bg) !important;
+  border-top: 1px solid var(--cd-frame) !important;
+  font-family: var(--cd-ui) !important;
+  font-weight: 600 !important;
+}
+
+.findbar-textbox {
+  border-radius: 0 !important;
+  font-family: var(--cd-mono) !important;
+  background: var(--cd-surface) !important;
+  border: 1px solid var(--cd-frame-dim) !important;
+}
+
+.findbar-textbox[status="notfound"] {
+  border-color: var(--cd-danger) !important;
+  box-shadow: inset 3px 0 0 var(--cd-danger) !important;
+}
+
+#downloadsPanel .downloadProgress::-moz-progress-bar,
+.downloadProgress::-moz-progress-bar {
+  background: var(--cd-primary) !important;
+  border-radius: 0 !important;
+}
+
+.downloadProgress {
+  border-radius: 0 !important;
+  background: color-mix(in srgb, var(--cd-primary) 15%, transparent) !important;
+}
+
+/* the link target shown in the bottom corner, a HUD readout */
+#statuspanel-label {
+  border-radius: 0 !important;
+  background: var(--cd-bg) !important;
+  color: var(--cd-primary) !important;
+  border: 1px solid var(--cd-frame) !important;
+  font-family: var(--cd-mono) !important;
+  font-size: 11px !important;
+}
+
+/* the line between the chrome and the page */
+#tabbrowser-tabbox,
+#browser {
+  background: var(--cd-bg) !important;
+}

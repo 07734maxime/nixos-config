@@ -3,30 +3,23 @@
   programs.niri.settings = {
     layout = {
       gaps = 12;
+      # swaybg lives in the backdrop (see default.nix): workspaces must be
+      # transparent or their default background hides the wallpaper
+      background-color = "transparent";
+      # the bar reserves its own space, struts only add breathing room
       struts = {
         left = 8;
         right = 8;
-        top = 32;
+        top = 4;
         bottom = 8;
       };
+      # colours come from the live OS palette (see the include in default.nix)
       focus-ring = {
         width = 2;
-        active = {
-          color = "#fcee0a";
-        };
-        inactive = {
-          color = "#263346";
-        };
       };
       border = {
         enable = false;
         width = 1;
-        active = {
-          color = "#00f0ff";
-        };
-        inactive = {
-          color = "#1a2638";
-        };
       };
       shadow = {
         enable = true;
@@ -71,8 +64,17 @@
         matches = [
           { app-id = "file_chooser"; }
           { app-id = "kitty"; }
+          { app-id = "cyberdeck-float"; }
         ];
         open-floating = true;
+      }
+      # the terminal sits on frosted glass: niri blurs the wallpaper behind it
+      {
+        matches = [
+          { app-id = "^kitty$"; }
+          { app-id = "^cyberdeck-float$"; }
+        ];
+        background-effect.blur = true;
       }
     ];
 

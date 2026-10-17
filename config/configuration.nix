@@ -7,15 +7,9 @@
 
 {
 
-  ## managing fonts
+  ## managing fonts (Rajdhani and JetBrains Mono are installed by Stylix, see stylix.nix)
 
-  fonts.packages = with pkgs; [
-    jetbrains-mono
-  ];
   fonts.fontconfig.enable = true;
-  fonts.fontconfig.defaultFonts = {
-    monospace = [ "JetBrains Mono" ];
-  };
 
   ## handle nvidia gpu
 
@@ -31,7 +25,6 @@
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
-
 
   ## use yazi as a file chooser
 
@@ -69,6 +62,24 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    # Discord only cancels its own output: a video playing next to a call went
+    # back out through the mic. This source removes everything the default
+    # sink plays, whatever the app.
+    extraConfig.pipewire."60-echo-cancel"."context.modules" = [
+      {
+        name = "libpipewire-module-echo-cancel";
+        args = {
+          "library.name" = "aec/libspa-aec-webrtc";
+          "monitor.mode" = true;
+          "source.props" = {
+            "node.name" = "echo-cancel-source";
+            "node.description" = "Micro (sans écho)";
+            # above the sound card's mic, so it becomes the default source
+            "priority.session" = 2500;
+          };
+        };
+      }
+    ];
   };
   security.rtkit.enable = true;
 
@@ -77,8 +88,18 @@
     "flakes"
   ];
   nixpkgs.config.allowUnfree = true;
+  # zsh is set up by home-manager (home/terminal.nix), this makes it the login shell
+  programs.zsh = {
+    enable = true;
+    # home-manager runs compinit already
+    enableGlobalCompInit = false;
+  };
+  # completions of the system packages
+  environment.pathsToLink = [ "/share/zsh" ];
+
   users.users.hello = {
     isNormalUser = true;
+    shell = pkgs.zsh;
     extraGroups = [
       "wheel"
       "networkmanager"
@@ -99,8 +120,17 @@
     enable = true;
   };
 
+  # needed by home-manager's dconf settings
+  programs.dconf.enable = true;
+
+  # PAM services of the Quickshell lockscreen and of its swaylock fallback
+  security.pam.services.cyberlock = { };
+  security.pam.services.swaylock = { };
+
   system.stateVersion = "26.05";
   imports = [
     ./hardware-configuration.nix
+    ./stylix.nix
+    ./greeter.nix
   ];
 }

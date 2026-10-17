@@ -2,31 +2,66 @@
 {
   "Mod+Shift+Slash".action.show-hotkey-overlay = [ ];
   "Mod+T".action.spawn = "kitty";
-  "Mod+D".action.spawn = [ "quickshell" "-n" "-p" "${config.home.homeDirectory}/.config/quickshell/quickhack.qml" ];
+
+  # Cyberdeck shell binds (Mod+D, Mod+A, Mod+B, Mod+O, Mod+W, Mod+N, Mod+Alt+L,
+  # Mod+Shift+R) live in ../shell/default.nix, next to the commands they call
 
   XF86AudioRaiseVolume = {
     allow-when-locked = true;
-    action.spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+" ];
+    action.spawn = [
+      "wpctl"
+      "set-volume"
+      "-l"
+      "1.0"
+      "@DEFAULT_AUDIO_SINK@"
+      "0.05+"
+    ];
   };
   XF86AudioLowerVolume = {
     allow-when-locked = true;
-    action.spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-" ];
+    action.spawn = [
+      "wpctl"
+      "set-volume"
+      "@DEFAULT_AUDIO_SINK@"
+      "0.05-"
+    ];
+  };
+  XF86AudioMute = {
+    allow-when-locked = true;
+    action.spawn = [
+      "wpctl"
+      "set-mute"
+      "@DEFAULT_AUDIO_SINK@"
+      "toggle"
+    ];
   };
   XF86AudioPlay = {
     allow-when-locked = true;
-    action.spawn = [ "playerctl" "play-pause" ];
+    action.spawn = [
+      "playerctl"
+      "play-pause"
+    ];
   };
   XF86AudioPause = {
     allow-when-locked = true;
-    action.spawn = [ "playerctl" "pause" ];
+    action.spawn = [
+      "playerctl"
+      "pause"
+    ];
   };
   XF86AudioNext = {
     allow-when-locked = true;
-    action.spawn = [ "playerctl" "next" ];
+    action.spawn = [
+      "playerctl"
+      "next"
+    ];
   };
   XF86AudioPrev = {
     allow-when-locked = true;
-    action.spawn = [ "playerctl" "previous" ];
+    action.spawn = [
+      "playerctl"
+      "previous"
+    ];
   };
 
   "Mod+Q".action.close-window = [ ];

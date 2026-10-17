@@ -1,0 +1,4 @@
+# build outputs and Python caches of the colour engine
+result
+result-*
+__pycache__/
