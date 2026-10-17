@@ -1,4 +1,5 @@
 # NixOS Configuration
+## ⚠️ An important part of this project has been made thanks to AI
 
 My personal NixOS configuration, managed with flakes and
 Home Manager. This is built around the Niri compositor and is
