@@ -24,6 +24,8 @@
   imports = [
     ./apps/code.nix
     ./apps/firefox.nix
+    ./apps/latex.nix
+    ./apps/python.nix
     ./apps/vim.nix
     ./apps/yazi.nix
     ./niri

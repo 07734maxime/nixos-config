@@ -79,6 +79,15 @@
 
   "Mod+Shift+WheelScrollDown".action.focus-column-right = [ ];
   "Mod+Shift+WheelScrollUp".action.focus-column-left = [ ];
+  # takes the focused window along; the cooldown keeps one notch = one workspace
+  "Mod+Ctrl+Shift+WheelScrollDown" = {
+    action.move-window-to-workspace-down = [ ];
+    cooldown-ms = 150;
+  };
+  "Mod+Ctrl+Shift+WheelScrollUp" = {
+    action.move-window-to-workspace-up = [ ];
+    cooldown-ms = 150;
+  };
   "Mod+Ctrl+Left".action.move-column-left = [ ];
   "Mod+Ctrl+Down".action.move-window-down = [ ];
   "Mod+Ctrl+Up".action.move-window-up = [ ];

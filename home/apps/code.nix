@@ -9,6 +9,7 @@
       extensions = with pkgs.vscode-extensions; [
         jnoortheen.nix-ide
         pkief.material-icon-theme
+        leonardssh.vscord # discord rich presence
       ];
 
       userSettings = {

@@ -3,6 +3,7 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
 }:
 {
@@ -20,6 +21,7 @@
       playerctl
       libnotify
       jq
+      inputs.sidra.packages.${pkgs.stdenv.hostPlatform.system}.default # apple music
     ]
     # added from the PACKAGE BROKER of the shell (cyberdeck-pkgs), which checks
     # every name against nixpkgs; dotted names reach into package sets

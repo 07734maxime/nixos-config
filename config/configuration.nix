@@ -88,6 +88,8 @@
     "flakes"
   ];
   nixpkgs.config.allowUnfree = true;
+  # prebuilt binaries (pip / uv wheels like numpy, VSCode helpers) find their libc
+  programs.nix-ld.enable = true;
   # zsh is set up by home-manager (home/terminal.nix), this makes it the login shell
   programs.zsh = {
     enable = true;
